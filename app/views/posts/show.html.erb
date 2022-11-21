@@ -1,0 +1,23 @@
+<div class="card mb-3" style="max-width: 80%;">
+  <div class="row g-0">
+    <div class="col-md-8">
+      <div class="card-body">
+        <h5 class="card-title"><%= @post.title %></h5>
+        <p class="card-text"><%= @post.body %>.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<h3>Comments:</h3>
+<% @comments.each do |comment| %>
+  <div>
+    <strong><%= comment.user.first_name %> <%= comment.user.last_name %></strong>:
+    <br>
+    <p><%= comment.body %></p>
+    <p><%= button_to 'Delete', comment_path(id: comment.id, post_id: @post.id),
+            method: :delete, data: { confirm: 'Are you sure?' },
+            class: "btn btn-danger btn-sm" %></p>
+  </div>
+<% end %>
+<%= render partial: 'comments/form', locals: { comment: @comment } %>
